@@ -24,11 +24,10 @@ The importer holds the annotated key frame through the next 250 ms sample bounda
 
 The bundled scenario is an authored functional check. Its outputs demonstrate branches in the application. Camera angle, motion, crowding, and occlusion need separate evaluation on real footage.
 
-
 ## Verified results
 
 The [GitHub browser check](https://github.com/DotBion/cafe-ops-agent/actions/runs/44934552423) drove the synthetic replay through alert suppression, task creation, acknowledgment, resolution, and evidence playback. The fixture comparison scored 16 windows. The baseline made one false alert and missed the reviewed event. The investigation strategy made no false alerts and opened the task two seconds after the reviewed onset.
 
 The [Gemini smoke test](https://github.com/DotBion/cafe-ops-agent/actions/runs/44934560973) completed two Hydrogen requests on the same synthetic scene. The observer took 9.45 seconds and the close review took 6.06 seconds. Both estimated one waiting customer. The authored scene has two waiting customers at that instant. This run verifies the request and response path and records an example of undercounting.
 
-The first 6.25-second processed Café clip, source 8 clip 380, supplied 31 images, 11 annotated actors, and two annotated social groups. The importer and playback window extracted the reviewed frame at 6.0 seconds. Queue labels and a representative held-out set are still needed for a real-footage comparison.
+The first 6.25-second processed Café clip, source 8 clip 380, supplied 31 images, 11 annotated actors, and two annotated social groups. The importer and playback window extracted the reviewed frame at 6.0 seconds. The researchers filmed recruited participants performing directed activities in six cafés. This sample exercised import and frame extraction. A real-footage comparison with Gemini still needs reviewed queue labels and a representative held-out set. [Café paper](https://arxiv.org/html/2312.02878v2)

@@ -72,4 +72,14 @@ python -m eval.benchmark --manifest eval/local/cafe-manifest.json \
 
 **Evaluation** reads `evaluation.json` from the runtime directory when present. Keep uploaded footage, annotations, and reports containing nonpublic observations on the local machine. The runtime directory defaults to `.cafe-ops/` and holds videos, sampled frames, and the SQLite journal.
 
-See the [implementation plan](plan.md), [decision log](docs/decisions.md), [issue log](docs/issues.md), and [demo script](docs/demo.md).
+## Project documentation
+
+| Document | Contents |
+| --- | --- |
+| [Implementation plan](plan.md) | Scope, architecture, milestones, and current status |
+| [Agent design](agent.md) | Live agent behavior, model settings, and the proposed Carbon closing review |
+| [Contributor guidance](AGENTS.md) | Repository entry points, checks, and documentation conventions |
+| [Evaluation](docs/evaluation.md) | Scoring protocol, evidence, and verified results |
+| [Decision log](docs/decisions.md) | Design choices and tradeoffs |
+| [Issue log](docs/issues.md) | Observed failures and fixes |
+| [Demo script](docs/demo.md) | One-minute walkthrough |

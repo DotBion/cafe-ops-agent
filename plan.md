@@ -1,7 +1,7 @@
 # Café Operations Agent — Implementation Plan
 
 Date: 2026-11-21
-Status: First implementation in this repository. The synthetic scenario exercises the full workflow. Refer to README.md for Gemini testing and the Café evaluation procedure.
+Status: First implementation in this repository. The synthetic scenario exercises the full workflow. See [README.md](README.md) for setup and [agent.md](agent.md) for runtime behavior and the proposed Carbon closing review.
 First release: A runnable local application with real Gemini inference, video evidence, staff tasks, and a separate evaluator.
 
 ## 1. Product goal
@@ -32,7 +32,7 @@ Deferred: model training, all-four-model orchestration, individual wait times, t
 
 Known from the current project context and cited documentation:
 
-- The user reports Gemini Tier 3 access to the four event models. Credentials and actual project/model access have not been tested here.
+- The user reports Gemini Tier 3 access to the four event models. The [two-request smoke test](docs/evaluation.md#verified-results) verified Hydrogen access using the configured GitHub Actions secret.
 - Hydrogen supports video input, structured output, and function calling. Its Live API is unsupported; periodic inference requests are the initial design.
 - Tier 3 does not guarantee capacity or eliminate throttling.
 - Café provides six-second clips, actor tracklets, group membership, and group activity annotations.
@@ -76,14 +76,14 @@ Reference annotations have no path into runtime prompts, investigation tools, or
 | --- | --- |
 | Backend | Python with FastAPI and Pydantic validation |
 | Video processing | FFmpeg/OpenCV for decoding, timestamped sampling, and evidence extraction |
-| Model adapter | Google Gen AI SDK, isolated behind an application interface |
+| Model adapter | Gemini GenerateContent REST API, isolated behind an application interface |
 | Frontend | React, TypeScript, and Vite |
 | Live updates | Server-sent events for observations, task changes, and run status |
 | Storage | SQLite for runs, observations, investigations, tasks, and evaluation records; local files for video/evidence |
 | Configuration | Backend environment variables and a checked-in example without credentials |
 | Packaging | Reproducible dependency versions, documented local startup, and a container option after the core path works |
 
-Pin package versions after checking compatibility during implementation. The implementation decisions and verification status are maintained in docs/.
+See [docs/decisions.md](docs/decisions.md) for implementation choices and [docs/evaluation.md](docs/evaluation.md) for verification status.
 
 ## 5. Input and time handling
 
@@ -248,6 +248,8 @@ Maintain a decisions log with date, decision, evidence, options considered, trad
 | Path | Purpose |
 | --- | --- |
 | `plan.md` | This implementation plan |
+| `agent.md` | Agent behavior, model configuration, and closing shift proposal |
+| `AGENTS.md` | Contributor guidance and verification commands |
 | `backend/app/` | API, video sources, model adapters, observations, agent tools, task service, persistence |
 | `frontend/` | Video dashboard, evidence timeline, task panel, evaluation view |
 | `eval/` | Manifest/schema tooling, annotation import, baseline runner, matching, metrics, reports |
@@ -291,6 +293,7 @@ Documentation reviewed during planning on 2026-11-21; recheck exact API/SDK beha
 - [x] Verify timing, source boundaries, and failure behavior in automated checks.
 - [x] Add investigation tools and staff tasks.
 - [ ] Prepare reviewed labels and freeze the evaluation setup.
-- [ ] Run the baseline and agent comparison.
-- [ ] Record measured results, limitations, decisions, and actual errors.
+- [x] Run the baseline and agent comparison on the synthetic fixture.
+- [ ] Compare the strategies on reviewed real café footage.
+- [x] Record measured results, limitations, decisions, and observed errors.
 - [x] Package the runnable app, synthetic replay, and demo script.
