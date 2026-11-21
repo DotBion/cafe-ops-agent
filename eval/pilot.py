@@ -39,7 +39,7 @@ async def pilot(video: Path, at_ms: int, settings: Settings) -> dict:
                 except ProviderError as error:
                     result["stages"].append(dict(phase=phase, code=error.code, error=str(error),
                                                  calls=error.calls, elapsed_ms=error.elapsed_ms,
-                                                 tokens=error.tokens))
+                                                 tokens=error.tokens, diagnostic=error.diagnostic))
                     break
                 result["stages"].append(dict(
                     phase=phase, sampled_ms=[frame.ms for frame in samples], calls=checked.calls,

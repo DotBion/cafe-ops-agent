@@ -22,13 +22,13 @@
       "observer": "authored fixture",
       "verifier": "authored fixture",
       "schema": "1",
-      "prompt": "cafe-observation-v1",
+      "prompt": "cafe-observation-v2",
       "window_ms": 5000,
       "cadence_ms": 2000,
       "max_lag_ms": 6000,
       "thinking_level": "LOW",
       "max_calls": 30,
-      "id": "e53ac2f48615"
+      "id": "f4007a79d205"
     },
     "agent": {
       "provider": "fixture",
@@ -43,13 +43,13 @@
       "observer": "authored fixture",
       "verifier": "authored fixture",
       "schema": "1",
-      "prompt": "cafe-observation-v1",
+      "prompt": "cafe-observation-v2",
       "window_ms": 5000,
       "cadence_ms": 2000,
       "max_lag_ms": 6000,
       "thinking_level": "LOW",
       "max_calls": 30,
-      "id": "626ff00b0f3c"
+      "id": "00ee5a39c25b"
     }
   },
   "media_checksums": {
