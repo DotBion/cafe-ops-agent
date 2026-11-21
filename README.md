@@ -27,7 +27,7 @@ Set `GEMINI_API_KEY` in the server environment or in a local `.env` based on `.e
 
 Choose **Gemini** for the synthetic video, upload an MP4 or WebM, or select **Webcam**. Start analysis to send sampled frames to Gemini. Test with footage you are permitted to process. Webcam capture requires browser permission and starts only after you select it. Webcam evidence opens the sampled still. Replay evidence opens the sampled still and moves the video playhead to that position.
 
-The app defaults to 30 Gemini request attempts per run and 100 per server process, including retries. Sessions use a two-second minimum cadence and a six-second maximum observation lag by default. These settings are configurable in `.env.example`. Requests may take longer than the cadence. Responses that arrive beyond the lag limit cannot create, update, or resolve a task.
+The app defaults to 30 Gemini request attempts per run and 100 per server process, including retries. Sessions use a two-second minimum cadence and a 20-second maximum observation lag by default. These settings are configurable in `.env.example`. Requests may take longer than the cadence. The dashboard shows observation age. Responses beyond the lag limit cannot create, update, or resolve tasks.
 
 For a bounded API check, run:
 
@@ -35,7 +35,7 @@ For a bounded API check, run:
 python -m eval.pilot --output eval/results/pilot.json
 ```
 
-The same command runs on GitHub under **Actions → Gemini smoke test → Run workflow** with the repository secret `GEMINI_API_KEY`. It makes at most two request attempts using the bundled synthetic scene and stores the report as a workflow artifact. The automated build checks use the authored demo and require no key.
+The same command runs on GitHub under **Actions → Gemini smoke test → Run workflow** with the repository secret `GEMINI_API_KEY`. It makes at most two request attempts using the bundled synthetic scene and stores the report as a workflow artifact. The automated build checks use the authored demo and require no key. [See the recorded smoke test and its limits](docs/evaluation.md#verified-results).
 
 ## Evaluate footage
 

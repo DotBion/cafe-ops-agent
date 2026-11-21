@@ -30,7 +30,7 @@ class Policy:
 
 def run_configuration(settings: Settings, provider: str, strategy: str, threshold: int | None) -> dict:
     policy = Policy(threshold or settings.queue_threshold, settings.persistence_ms,
-                    max(settings.cadence_ms * 3, settings.persistence_ms * 2))
+                    max(settings.cadence_ms * 3, settings.persistence_ms * 2, settings.max_lag_ms))
     data = {
         "provider": provider, "strategy": strategy, "policy": asdict(policy),
         "observer": settings.observer if provider == "gemini" else "authored fixture",

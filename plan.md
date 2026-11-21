@@ -285,7 +285,8 @@ Documentation reviewed during planning on 2026-11-21; recheck exact API/SDK beha
 - [x] Write the implementation plan.
 - [x] Confirm access to one official Café clip with paired annotations.
 - [x] Configure model IDs and the request budget. Set the test credential as a GitHub Actions secret.
-- [ ] Complete the real single-clip pilot.
+- [x] Verify two live Gemini requests on the synthetic clip.
+- [ ] Run the pilot against reviewed real café footage.
 - [x] Build the dashboard and validate the full synthetic replay.
 - [x] Verify timing, source boundaries, and failure behavior in automated checks.
 - [x] Add investigation tools and staff tasks.

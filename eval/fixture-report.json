@@ -15,7 +15,7 @@
       "policy": {
         "threshold": 4,
         "persistence_ms": 2000,
-        "max_gap_ms": 6000,
+        "max_gap_ms": 20000,
         "cooldown_ms": 5000,
         "update_interval_ms": 5000
       },
@@ -25,10 +25,10 @@
       "prompt": "cafe-observation-v3",
       "window_ms": 5000,
       "cadence_ms": 2000,
-      "max_lag_ms": 6000,
+      "max_lag_ms": 20000,
       "thinking_level": "LOW",
       "max_calls": 30,
-      "id": "2cd0b38a34f1"
+      "id": "12ac85cf61e3"
     },
     "agent": {
       "provider": "fixture",
@@ -36,7 +36,7 @@
       "policy": {
         "threshold": 4,
         "persistence_ms": 2000,
-        "max_gap_ms": 6000,
+        "max_gap_ms": 20000,
         "cooldown_ms": 5000,
         "update_interval_ms": 5000
       },
@@ -46,10 +46,10 @@
       "prompt": "cafe-observation-v3",
       "window_ms": 5000,
       "cadence_ms": 2000,
-      "max_lag_ms": 6000,
+      "max_lag_ms": 20000,
       "thinking_level": "LOW",
       "max_calls": 30,
-      "id": "9b21efb24515"
+      "id": "a0cf4e043903"
     }
   },
   "media_checksums": {

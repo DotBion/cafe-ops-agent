@@ -74,13 +74,15 @@ export function Monitor({ monitor: m }: { monitor: MonitorData }) {
   const lastSuccessful = m.events.findLast((event) => event.type === "observation" && event.data.current);
   const failed = observeError?.type === "error" && (!lastSuccessful || observeError.id > lastSuccessful.id)
     ? observeError.data.message : "";
-  const stale = recent && Math.abs(m.position - recent.frame_ms) > (m.config?.max_lag_ms ?? 6000);
+  const stale = recent && Math.abs(m.position - recent.frame_ms) > (m.config?.max_lag_ms ?? 20000);
   const current = failed || stale ? undefined : recent;
   const tasks = byLatestTask(m.events);
   const activeTasks = tasks.filter((task) => task.status !== "resolved");
   const camera = m.source?.kind === "camera";
   const ready = m.provider === "fixture" || m.config?.gemini_ready;
   const runningCamera = camera && m.status === "running";
+  const finishing = !!m.run && !camera && !m.playing && m.status === "running"
+    && m.position >= (m.source?.duration_ms ?? Infinity) - 100;
   const reviewFrame = m.evidence;
   const reference = reviewFrame === undefined
     ? current
@@ -91,6 +93,7 @@ export function Monitor({ monitor: m }: { monitor: MonitorData }) {
   const renderStatus = m.connectionInterrupted ? "Reconnecting"
     : reviewing ? "Investigating"
     : m.status === "blocked" ? "Analysis blocked"
+    : finishing ? "Finishing analysis"
     : m.playing && m.run && m.status === "running" ? "Analyzing"
     : m.playing ? "Playing"
     : m.status === "completed" ? "Complete"
@@ -170,9 +173,9 @@ export function Monitor({ monitor: m }: { monitor: MonitorData }) {
           }}>
             <ArrowDownToLine size={15} /> Upload
           </button>
-          <button className="button primary" onClick={start} disabled={!m.source || m.starting || preparing}>
+          <button className="button primary" onClick={start} disabled={!m.source || m.starting || finishing || preparing}>
             {m.playing ? <Pause size={15} /> : camera ? <Video size={15} /> : <Play size={15} />}
-            {m.starting ? "Starting…" : tooltip}
+            {m.starting ? "Starting…" : finishing ? "Finishing…" : tooltip}
           </button>
         </div>
       </section>
@@ -250,7 +253,7 @@ export function Monitor({ monitor: m }: { monitor: MonitorData }) {
             ) : <div className="video-empty"><Film size={30} /><p>Choose a video source</p></div>}
           </div>
           <div className="playbar">
-            <button className="icon-button" onClick={start} disabled={!m.source || m.starting} aria-label={tooltip}>
+            <button className="icon-button" onClick={start} disabled={!m.source || m.starting || finishing} aria-label={tooltip}>
               {m.playing ? <Pause size={18} /> : <Play size={18} />}
             </button>
             <span className="clock">{clock(m.position)}</span>
