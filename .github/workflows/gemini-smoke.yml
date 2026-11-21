@@ -1,0 +1,35 @@
+name: Gemini smoke test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install -r requirements.txt
+      - name: Inspect a frame window and verify
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python -m eval.pilot --output pilot-result.json
+      - name: Save the smoke result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gemini-smoke-result
+          path: pilot-result.json
+          if-no-files-found: ignore
+          retention-days: 7
