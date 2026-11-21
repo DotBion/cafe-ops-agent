@@ -46,7 +46,16 @@ python -m unittest discover -v
 
 The [bundled report](eval/fixture-report.json) uses 16 samples from one authored scene. It exercises behavior and metric calculations. Gemini quality on actual café footage requires a separate run.
 
-Use the [Café project distribution](https://dk-kim.github.io/CAFE/) to obtain selected clip folders and review its dataset terms. The distribution is a large archive. This repository includes the original synthetic scene and an importer for local Café clip folders.
+Use the [Café project distribution](https://dk-kim.github.io/CAFE/) to obtain selected clip folders and review its dataset terms. The distribution is a large archive. The example command retrieves one paired clip using about 13 MiB of byte ranges.
+
+```sh
+python -m eval.fetch_example eval/local/paired/8/380
+python -m eval.import_cafe eval/local/paired/8/380 \
+  --fps 30 --cafe source-8 --view unknown --recording-group cafe-source-8 \
+  --split development --manifest eval/local/cafe-example.json
+```
+
+For a reviewed set of other clips, import each selected folder as follows.
 
 ```sh
 python -m eval.import_cafe /path/to/local/video_id/clip_id \

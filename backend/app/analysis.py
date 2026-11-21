@@ -204,6 +204,7 @@ class Analysis:
                 evidence_ms=evidence, current=current, frames=output.frames,
                 calls=output.calls, elapsed_ms=output.elapsed_ms, tokens=output.tokens,
                 completed_ms=now_ms(), step_started_ms=started_ms,
+                normalization_notes=list(output.normalizations),
             )
 
         observation = payload(result, observe_frames, "observe", is_current())

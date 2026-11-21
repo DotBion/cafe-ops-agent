@@ -194,7 +194,7 @@ If continuous footage or paired labels are unavailable, mark the corresponding m
 
 For actor matching, document coordinate transformations, missing detections, one-to-one matching, and overlap thresholds. If reporting official Café Group mAP or Outlier mIoU, reproduce the relevant protocol and distinguish detected-box evaluation from ground-truth-box inputs. Otherwise name the application metrics explicitly and avoid claiming direct comparability with the paper.
 
-This small sample is an exploratory demonstration. Report the sample size and error distribution; do not generalize it into a production reliability guarantee.
+This small sample is an exploratory demonstration. Report the sample size and error distribution and limit conclusions to the tested footage.
 
 ## 10. Implementation milestones and completion gates
 
@@ -283,13 +283,13 @@ Documentation reviewed during planning on 2026-11-21; recheck exact API/SDK beha
 ## 16. Initial checklist
 
 - [x] Write the implementation plan.
-- [ ] Confirm data access and paired annotations.
-- [ ] Configure the API key, model IDs, and experiment budget.
+- [x] Confirm access to one official Café clip with paired annotations.
+- [x] Configure model IDs and the request budget. Set the test credential as a GitHub Actions secret.
 - [ ] Complete the real single-clip pilot.
-- [ ] Build the end-to-end dashboard slice.
-- [ ] Verify timing, source boundaries, and failure behavior.
-- [ ] Add investigation tools and staff tasks.
+- [x] Build the dashboard and validate the full synthetic replay.
+- [x] Verify timing, source boundaries, and failure behavior in automated checks.
+- [x] Add investigation tools and staff tasks.
 - [ ] Prepare reviewed labels and freeze the evaluation setup.
 - [ ] Run the baseline and agent comparison.
 - [ ] Record measured results, limitations, decisions, and actual errors.
-- [ ] Package the app and demonstration.
+- [x] Package the runnable app, synthetic replay, and demo script.

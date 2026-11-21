@@ -44,6 +44,7 @@ async def pilot(video: Path, at_ms: int, settings: Settings) -> dict:
                 result["stages"].append(dict(
                     phase=phase, sampled_ms=[frame.ms for frame in samples], calls=checked.calls,
                     elapsed_ms=checked.elapsed_ms, observation=checked.scene.model_dump(), tokens=checked.tokens,
+                    normalization_notes=list(checked.normalizations),
                 ))
                 history.append(dict(at_ms=samples[-1].ms, queue_min=checked.scene.queue_min,
                                     queue_max=checked.scene.queue_max, summary=checked.scene.summary))

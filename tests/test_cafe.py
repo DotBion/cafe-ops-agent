@@ -15,7 +15,7 @@ from backend.app.contracts import NewRun, Scene, Source
 from backend.app.journal import Journal
 from backend.app.main import DEMO_ID, create_app
 from backend.app.media import Frame, VideoFrames
-from backend.app.models import Budget, FixtureVision, GeminiVision, ProviderError
+from backend.app.models import Budget, FixtureVision, GeminiVision, ProviderError, parse_scene
 from backend.app.runs import RunConflict, Runs
 from backend.app.settings import Settings
 from eval.benchmark import fixture_manifest, iou, match, summarize
@@ -187,6 +187,17 @@ class MediaTests(unittest.TestCase):
 
 
 class MetricTests(unittest.TestCase):
+    def test_invalid_model_evidence_turns_clear_result_into_uncertain(self):
+        scene, notes = parse_scene(json.dumps(dict(
+            queue_min=4, queue_max=4, visibility="clear", summary="Possibly four.",
+            people=[dict(id="invalid", box=dict(x1=0, y1=0, x2=850, y2=500), membership="waiting")],
+            groups=[], evidence_frames=[6, 1], inspection=None,
+        )), frame_count=4)
+        self.assertEqual(scene.visibility, "uncertain")
+        self.assertEqual(scene.people, [])
+        self.assertEqual(scene.evidence_frames, [1])
+        self.assertTrue(notes)
+
     def test_identity_matching_uses_geometry_and_rejects_duplicate_matches(self):
         box = dict(x1=0.0, y1=0.0, x2=0.5, y2=0.5)
         other = dict(x1=0.6, y1=0.6, x2=1.0, y2=1.0)
